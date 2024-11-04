@@ -1,0 +1,290 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Indian Scholarships Info Hub</title>
+  <style>
+    /* General Page Styling */
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Arial', sans-serif;
+      background: linear-gradient(to right, #a1c4fd, #c2e9fb);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      height: 100vh;
+      color: #333;
+    }
+
+    .container {
+      width: 100%;
+      max-width: 600px;
+      background-color: #fff;
+      border-radius: 15px;
+      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+      overflow: hidden;
+      text-align: center;
+      padding: 30px;
+      animation: fadeIn 1s ease-in-out;
+    }
+
+    h1 {
+      font-size: 28px;
+      color: #495057;
+      margin-bottom: 20px;
+      font-weight: 700;
+      text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.1);
+    }
+
+    /* Scholarship Buttons */
+    .scholarship-btn {
+      width: 100%;
+      padding: 15px;
+      margin: 10px 0;
+      font-size: 16px;
+      background: #28a745;
+      color: white;
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      font-weight: bold;
+    }
+
+    .scholarship-btn:hover {
+      background: #218838;
+      transform: scale(1.02);
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    }
+
+    /* Modal Styling */
+    .modal {
+      display: none;
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background-color: rgba(0, 0, 0, 0.6);
+      justify-content: center;
+      align-items: center;
+      z-index: 10;
+    }
+
+    .modal-content {
+      background-color: #f7f7f7;
+      padding: 25px;
+      width: 90%;
+      max-width: 550px;
+      border-radius: 10px;
+      box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+      text-align: left;
+    }
+
+    .close {
+      float: right;
+      font-size: 24px;
+      cursor: pointer;
+      color: #888;
+      font-weight: bold;
+    }
+
+    .close:hover {
+      color: #444;
+    }
+
+    .form-group {
+      margin: 15px 0;
+    }
+
+    .form-group label {
+      font-weight: bold;
+      display: block;
+      color: #555;
+    }
+
+    .form-group input[type="checkbox"] {
+      margin-right: 10px;
+    }
+
+    .apply-link {
+      display: none;
+      margin-top: 15px;
+      padding: 10px 20px;
+      text-decoration: none;
+      color: white;
+      background-color: #007bff;
+      border-radius: 5px;
+      font-weight: bold;
+      display: inline-block;
+      text-align: center;
+      transition: background-color 0.3s ease;
+    }
+
+    .apply-link:hover {
+      background-color: #0056b3;
+    }
+
+    /* Animation */
+    @keyframes fadeIn {
+      from {
+        opacity: 0;
+        transform: translateY(-20px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+  </style>
+</head>
+<body>
+
+<div class="container">
+  <h1>Indian Scholarships Info Hub</h1>
+
+  <!-- Scholarship Buttons -->
+  <button class="scholarship-btn" onclick="openModal('scholarship1')">KVPY Scholarship</button>
+  <button class="scholarship-btn" onclick="openModal('scholarship2')">INSPIRE Scholarship</button>
+  <button class="scholarship-btn" onclick="openModal('scholarship3')">National Means Cum Merit Scholarship</button>
+  <button class="scholarship-btn" onclick="openModal('scholarship4')">Swami Vivekananda Scholarship</button>
+  <button class="scholarship-btn" onclick="openModal('scholarship5')">AICTE Pragati Scholarship</button>
+  <button class="scholarship-btn" onclick="openModal('scholarship6')">AICTE Saksham Scholarship</button>
+  <button class="scholarship-btn" onclick="openModal('scholarship7')">Central Sector Scheme of Scholarships</button>
+  <button class="scholarship-btn" onclick="openModal('scholarship8')">Maulana Azad National Fellowship</button>
+  <button class="scholarship-btn" onclick="openModal('scholarship9')">Prime Minister’s Scholarship Scheme</button>
+  <button class="scholarship-btn" onclick="openModal('scholarship10')">Indira Gandhi Single Girl Child Scholarship</button>
+
+  <!-- Modal for Scholarship Form -->
+  <div id="modal" class="modal">
+    <div class="modal-content">
+      <span class="close" onclick="closeModal()">&times;</span>
+      <div id="modal-content"></div>
+    </div>
+  </div>
+</div>
+
+<script>
+  // Scholarship data
+  const scholarships = {
+    scholarship1: {
+      title: "KVPY Scholarship",
+      description: "A scholarship for students interested in pursuing research in basic sciences.",
+      eligibility: ["Passed Class 12th", "Enrolled in a basic science course"],
+      link: "https://kvpy.iisc.ernet.in"
+    },
+    scholarship2: {
+      title: "INSPIRE Scholarship",
+      description: "A scholarship to encourage students to pursue science at the undergraduate and postgraduate level.",
+      eligibility: ["Top 1% in Class 12 Board Exam", "Studying in science stream"],
+      link: "https://www.online-inspire.gov.in"
+    },
+    scholarship3: {
+      title: "National Means Cum Merit Scholarship",
+      description: "This scholarship aims to enhance the number of students from low-income families in higher education.",
+      eligibility: ["Class 8 pass", "Family income not more than ₹1.5 lakh per annum"],
+      link: "https://scholarships.gov.in"
+    },
+    scholarship4: {
+      title: "Swami Vivekananda Scholarship",
+      description: "Scholarship for minority students to pursue higher education.",
+      eligibility: ["Enrolled in a recognized college or university", "Annual family income less than ₹2.5 lakh"],
+      link: "https://www.wbhed.gov.in"
+    },
+    scholarship5: {
+      title: "AICTE Pragati Scholarship",
+      description: "This scholarship is for female students pursuing technical education.",
+      eligibility: ["Admission to the first year of degree or diploma program", "Family income less than ₹8 lakh"],
+      link: "https://www.aicte-india.org"
+    },
+    scholarship6: {
+      title: "AICTE Saksham Scholarship",
+      description: "Scholarship for specially-abled students to pursue technical education.",
+      eligibility: ["Admission to the first year of degree or diploma program", "Disability certificate required"],
+      link: "https://www.aicte-india.org"
+    },
+    scholarship7: {
+      title: "Central Sector Scheme of Scholarships",
+      description: "Scholarship for students from economically weaker sections pursuing higher studies.",
+      eligibility: ["Class 12 pass", "Family income less than ₹6 lakh per annum"],
+      link: "https://scholarships.gov.in"
+    },
+    scholarship8: {
+      title: "Maulana Azad National Fellowship",
+      description: "Fellowship for students from minority communities for higher education.",
+      eligibility: ["Postgraduate degree", "NET qualified"],
+      link: "https://www.ugc.ac.in"
+    },
+    scholarship9: {
+      title: "Prime Minister’s Scholarship Scheme",
+      description: "Scholarship for children of ex-servicemen to pursue higher education.",
+      eligibility: ["Children of ex-servicemen", "Eligible for technical and professional courses"],
+      link: "https://www.desw.gov.in"
+    },
+    scholarship10: {
+      title: "Indira Gandhi Single Girl Child Scholarship",
+      description: "Scholarship for single girl children pursuing higher education.",
+      eligibility: ["Must be a single girl child", "Enrolled in a recognized university"],
+      link: "https://www.ugc.ac.in"
+    },
+  };
+
+  // Function to open the modal with scholarship details
+  function openModal(scholarshipId) {
+    const scholarship = scholarships[scholarshipId];
+    const modalContent = document.getElementById("modal-content");
+    
+    // Generate eligibility checkboxes
+    const eligibilityChecks = scholarship.eligibility
+      .map((item, index) => `
+        <div class="form-group">
+          <input type="checkbox" id="check${index}" onclick="checkEligibility()" />
+          <label for="check${index}">${item}</label>
+        </div>
+      `).join("");
+      
+    modalContent.innerHTML = `
+      <h2>${scholarship.title}</h2>
+      <p>${scholarship.description}</p>
+      <form>
+        <div id="eligibility-checks">
+          <label><strong>Eligibility Criteria:</strong></label>
+          ${eligibilityChecks}
+        </div>
+      </form>
+      <a href="${scholarship.link}" target="_blank" id="apply-link" class="apply-link">Apply Here</a>
+    `;
+    
+    document.getElementById("modal").style.display = "flex";
+  }
+
+  // Function to close the modal
+  function closeModal() {
+    document.getElementById("modal").style.display = "none";
+  }
+
+  // Check eligibility function
+  function checkEligibility() {
+    const checkboxes = document.querySelectorAll("#eligibility-checks input[type='checkbox']");
+    const allChecked = Array.from(checkboxes).every(checkbox => checkbox.checked);
+    
+    document.getElementById("apply-link").style.display = allChecked ? "inline-block" : "none";
+  }
+
+  // Close modal when clicking outside of it
+  window.onclick = function(event) {
+    const modal = document.getElementById("modal");
+    if (event.target === modal) {
+      modal.style.display = "none";
+    }
+  };
+</script>
+
+</body>
+</html>
